@@ -35,12 +35,16 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'guard-livereload', '~> 2.5', '>= 2.5.2'
+  gem 'guard', '~> 2.14', '>= 2.14.2'
 end
 
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+  gem 'guard-livereload', '~> 2.5', '>= 2.5.2'
+  gem 'guard', '~> 2.14', '>= 2.14.2'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
