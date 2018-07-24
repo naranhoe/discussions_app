@@ -4,15 +4,15 @@ class RepliesController < ApplicationController
   before_action :set_discussion, only: [:create, :edit, :show, :update, :destroy]
 
   def create
-    @reply = @discussion.relies.create(params[:reply]).permit(:reply, :discussion_id)
+    @reply = @discussion.replies.create(params[:reply].permit(:reply, :discussion_id))
     @reply.user_id = current_user.id
 
     respond_to do |format|
       if @reply.save
         format.html { redirect_to discussion_path(@discussion) }
-        format.js #render create.js.erb
+        format.js # renders create.js.erb
       else
-        format.html { redirect_to discussion_path(@discussion), notice: "Reply did not save! Please try again." }
+        format.html { redirect_to discussion_path(@discussion), notice: "Reply did not save. Please try again."}
         format.js
       end
     end
@@ -20,6 +20,7 @@ class RepliesController < ApplicationController
 
   def new
   end
+
 
   def destroy
     @reply = @discussion.replies.find(params[:id])
@@ -34,9 +35,9 @@ class RepliesController < ApplicationController
 
   def update
     @reply = @discussion.replies.find(params[:id])
-    respond_to do |format|
-      if @reply.update(opinion_params)
-        format.html { redirect_to discussions_path(@discussion), notice: "Reply was successfully updated!" }
+     respond_to do |format|
+      if @reply.update(reply_params)
+        format.html { redirect_to discussion_path(@discussion), notice: 'Reply was successfully updated.' }
       else
         format.html { render :edit }
         format.json { render json: @reply.errors, status: :unprocessable_entity }
@@ -44,18 +45,20 @@ class RepliesController < ApplicationController
     end
   end
 
+  def show
+  end
 
   private
 
-    def set_discussion
-      @discussion = Discussion.find(params[:discussion_id])
-    end
+  def set_discussion
+    @discussion = Discussion.find(params[:discussion_id])
+  end
 
-    def set_reply
-      @reply = Reply.find(params[:id])
-    end
+  def set_reply
+    @reply = Reply.find(params[:id])
+  end
 
-    def reply_params
-      params.require(:reply).permit(:reply)
-    end
+  def reply_params
+    params.require(:reply).permit(:reply)
+  end
 end

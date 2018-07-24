@@ -1,7 +1,7 @@
-class CreateReplies < ActiveRecord::Migration[5.2]
+class CreateReplies < ActiveRecord::Migration[5.1]
   def change
     create_table :replies do |t|
-      t.text :opinion
+      t.text :reply
 
       t.timestamps
     end
